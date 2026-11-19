@@ -1,1 +1,9 @@
-{% extends 'base.html' %}{% block content %}<h1>Registrar consulta</h1><p>Atención de {{ cita.paciente }} · {{ cita.fecha }} {{ cita.hora }}</p><form method="post" class="card card-body">{% csrf_token %}{{ form.as_p }}<button class="btn btn-primary">Guardar consulta</button></form>{% endblock %}
+{% extends 'base.html' %}{% block content %}
+<h1>Registrar consulta</h1>
+<p>Atención de {{ cita.paciente }} · {{ cita.fecha }} {{ cita.hora }}</p>
+<form method="post" class="card card-body">
+  {% csrf_token %}{{ form.as_p }}<button class="btn btn-primary">
+    Guardar consulta
+  </button>
+</form>
+{% endblock %}

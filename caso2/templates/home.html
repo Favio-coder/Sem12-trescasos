@@ -1,1 +1,37 @@
-{% extends 'base.html' %}{% block content %}<section class="hero p-5 rounded-4 mb-4"><span class="badge text-bg-success">Atención universitaria</span><h1 class="display-5 fw-bold mt-3">Tu salud, nuestra prioridad</h1><p class="lead">Plataforma de gestión de consultas médicas del Centro Médico Universitario de la UNCP.</p><a class="btn btn-primary btn-lg" href="{% url 'login' %}">Acceder al sistema</a> <a class="btn btn-outline-primary btn-lg" href="{% url 'cita_nueva' %}">Agendar cita</a></section><h2>Especialidades</h2><div class="row g-3">{% for e in especialidades %}<div class="col-md-3"><div class="card h-100"><div class="card-body"><h5>{{ e.nombre }}</h5><p>{{ e.descripcion|default:'Atención especializada para la comunidad universitaria.' }}</p></div></div></div>{% empty %}<p>Atención médica general y especializada para estudiantes y docentes.</p>{% endfor %}</div><div class="alert alert-light mt-4">Horario institucional: lunes a viernes 08:00–18:00 · sábados 08:00–13:00.</div>{% endblock %}
+{% extends 'base.html' %}{% block content %}
+<section class="hero p-5 rounded-4 mb-4">
+  <span class="badge text-bg-success">Atención universitaria</span>
+  <h1 class="display-5 fw-bold mt-3">Tu salud, nuestra prioridad</h1>
+  <p class="lead">
+    Plataforma de gestión de consultas médicas del Centro Médico Universitario
+    de la UNCP.
+  </p>
+  <a class="btn btn-primary btn-lg" href="{% url 'login' %}"
+    >Acceder al sistema</a
+  >
+  <a class="btn btn-outline-primary btn-lg" href="{% url 'cita_nueva' %}"
+    >Agendar cita</a
+  >
+</section>
+<h2>Especialidades</h2>
+<div class="row g-3">
+  {% for e in especialidades %}
+  <div class="col-md-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5>{{ e.nombre }}</h5>
+        <p>
+          {{ e.descripcion|default:'Atención especializada para la comunidad
+          universitaria.' }}
+        </p>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <p>Atención médica general y especializada para estudiantes y docentes.</p>
+  {% endfor %}
+</div>
+<div class="alert alert-light mt-4">
+  Horario institucional: lunes a viernes 08:00–18:00 · sábados 08:00–13:00.
+</div>
+{% endblock %}

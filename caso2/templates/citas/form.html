@@ -1,1 +1,22 @@
-{% extends 'base.html' %}{% block content %}<div class="row justify-content-center"><div class="col-lg-8"><h1>Agendar cita médica</h1><div class="alert alert-info">La disponibilidad se valida contra el horario institucional y el horario del médico.</div><form method="post" class="card card-body">{% csrf_token %}{{ form.non_field_errors }}{% for field in form %}<div class="mb-3"><label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{% if field.errors %}<div class="text-danger">{{ field.errors }}</div>{% endif %}</div>{% endfor %}<button class="btn btn-primary">Confirmar cita</button></form></div></div>{% endblock %}
+{% extends 'base.html' %}{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <h1>Agendar cita médica</h1>
+    <div class="alert alert-info">
+      La disponibilidad se valida contra el horario institucional y el horario
+      del médico.
+    </div>
+    <form method="post" class="card card-body">
+      {% csrf_token %}{{ form.non_field_errors }}{% for field in form %}
+      <div class="mb-3">
+        <label class="form-label" for="{{ field.id_for_label }}"
+          >{{ field.label }}</label
+        >{{ field }}{% if field.errors %}
+        <div class="text-danger">{{ field.errors }}</div>
+        {% endif %}
+      </div>
+      {% endfor %}<button class="btn btn-primary">Confirmar cita</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

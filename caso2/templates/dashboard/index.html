@@ -1,1 +1,74 @@
-{% extends 'base.html' %}{% block content %}<h1 class="mb-4">Panel de gestión</h1>{% if user.is_staff %}<div class="row g-3 mb-4">{% for label,value in counts.items %}<div class="col"><div class="card stat"><div class="card-body"><div class="text-secondary">{{ label }}</div><strong class="fs-3">{{ value }}</strong></div></div></div>{% endfor %}<div class="col"><div class="card stat"><div class="card-body">Pacientes <strong class="fs-3">{{ pacientes }}</strong></div></div></div><div class="col"><div class="card stat"><div class="card-body">Médicos activos <strong class="fs-3">{{ medicos }}</strong></div></div></div><div class="col"><div class="card stat"><div class="card-body">Citas programadas <strong class="fs-3">{{ citas }}</strong></div></div></div></div>{% endif %}<div class="d-flex justify-content-between align-items-center"><h2 class="h4">{% if user.is_staff %}Agenda de hoy{% else %}Mis citas / Agenda{% endif %}</h2><a class="btn btn-primary" href="{% url 'cita_nueva' %}">Agendar cita</a></div><div class="table-responsive"><table class="table table-hover"><thead><tr><th>Fecha</th><th>Hora</th><th>Paciente</th><th>Médico</th><th>Estado</th></tr></thead><tbody>{% for c in agenda %}<tr><td>{{ c.fecha }}</td><td>{{ c.hora }}</td><td>{{ c.paciente }}</td><td>{{ c.medico }}</td><td><span class="badge text-bg-primary">{{ c.get_estado_display }}</span></td></tr>{% empty %}<tr><td colspan="5">No hay citas para mostrar.</td></tr>{% endfor %}</tbody></table></div>{% endblock %}
+{% extends 'base.html' %}{% block content %}
+<h1 class="mb-4">Panel de gestión</h1>
+{% if user.is_staff %}
+<div class="row g-3 mb-4">
+  {% for label,value in counts.items %}
+  <div class="col">
+    <div class="card stat">
+      <div class="card-body">
+        <div class="text-secondary">{{ label }}</div>
+        <strong class="fs-3">{{ value }}</strong>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  <div class="col">
+    <div class="card stat">
+      <div class="card-body">
+        Pacientes <strong class="fs-3">{{ pacientes }}</strong>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card stat">
+      <div class="card-body">
+        Médicos activos <strong class="fs-3">{{ medicos }}</strong>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card stat">
+      <div class="card-body">
+        Citas programadas <strong class="fs-3">{{ citas }}</strong>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+<div class="d-flex justify-content-between align-items-center">
+  <h2 class="h4">
+    {% if user.is_staff %}Agenda de hoy{% else %}Mis citas / Agenda{% endif %}
+  </h2>
+  <a class="btn btn-primary" href="{% url 'cita_nueva' %}">Agendar cita</a>
+</div>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Paciente</th>
+        <th>Médico</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in agenda %}
+      <tr>
+        <td>{{ c.fecha }}</td>
+        <td>{{ c.hora }}</td>
+        <td>{{ c.paciente }}</td>
+        <td>{{ c.medico }}</td>
+        <td>
+          <span class="badge text-bg-primary">{{ c.get_estado_display }}</span>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5">No hay citas para mostrar.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

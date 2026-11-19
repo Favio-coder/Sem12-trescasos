@@ -1,1 +1,30 @@
-{% extends 'base.html' %}{% block content %}<h1>Disponibilidad médica</h1><p>Agenda futura de citas programadas.</p><div class="table-responsive"><table class="table"><thead><tr><th>Fecha</th><th>Hora</th><th>Especialidad</th><th>Médico</th></tr></thead><tbody>{% for cita in citas %}<tr><td>{{ cita.fecha }}</td><td>{{ cita.hora }}</td><td>{{ cita.especialidad }}</td><td>{{ cita.medico }}</td></tr>{% empty %}<tr><td colspan="4">No hay citas próximas.</td></tr>{% endfor %}</tbody></table></div>{% endblock %}
+{% extends 'base.html' %}{% block content %}
+<h1>Disponibilidad médica</h1>
+<p>Agenda futura de citas programadas.</p>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Especialidad</th>
+        <th>Médico</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cita in citas %}
+      <tr>
+        <td>{{ cita.fecha }}</td>
+        <td>{{ cita.hora }}</td>
+        <td>{{ cita.especialidad }}</td>
+        <td>{{ cita.medico }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4">No hay citas próximas.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
