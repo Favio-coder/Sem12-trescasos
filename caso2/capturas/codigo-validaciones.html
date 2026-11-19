@@ -1,0 +1,31 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>Validaciones — citas/forms.py</title><style>body{margin:0;background:#0d1117;color:#c9d1d9;font:16px system-ui}header{background:#161b22;padding:24px 42px;color:#58a6ff;font-weight:700}main{padding:28px 42px}pre{background:#161b22;padding:26px;border:1px solid #30363d;border-radius:12px;line-height:1.55;white-space:pre-wrap}.muted{color:#8b949e;font-size:13px}</style><header>caso2 / citas / forms.py</header><main><h1>Validaciones de disponibilidad</h1><p class="muted">Código real del formulario de agendamiento del proyecto</p><pre>    def clean(self):
+        d = super().clean()
+        fecha = d.get('fecha')
+        hora = d.get('hora')
+        medico = d.get('medico')
+        especialidad = d.get('especialidad')
+        paciente = d.get('paciente')
+        motivo = d.get('motivo', '')
+
+        if len(motivo.strip()) &lt; 20:
+            self.add_error('motivo',
+                'El motivo debe tener al menos 20 caracteres.')
+        if fecha and fecha &lt; timezone.localdate():
+            self.add_error('fecha', 'No se permiten fechas pasadas.')
+        if medico and especialidad and medico.especialidad_id != especialidad.id:
+            self.add_error('medico',
+                'El médico no pertenece a esta especialidad.')
+
+        if fecha and hora:
+            weekday = fecha.weekday()
+            apertura, cierre = (time(8), time(13)) if weekday == 5 else (time(8), time(18))
+            if weekday == 6 or not apertura &lt;= hora &lt; cierre:
+                self.add_error('hora', 'Fuera del horario institucional.')
+            if medico and not medico.horarios.filter(
+                dia_semana=weekday,
+                hora_inicio__lte=hora,
+                hora_fin__gt=hora
+            ).exists():
+                self.add_error('hora',
+                    'Fuera del horario individual del médico.')
+        return d</pre></main></html>

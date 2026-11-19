@@ -1,0 +1,16 @@
+# Entornos y cachés de Python
+**/.venv/
+**/venv/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Datos locales y secretos
+**/db.sqlite3
+**/.env
+
+# Archivos generados por Django
+**/staticfiles/
+
+# Perfil temporal generado al probar Firefox
+caso2/capturas/firefox-profile/
